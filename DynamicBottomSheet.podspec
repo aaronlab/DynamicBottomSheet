@@ -9,34 +9,32 @@
 Pod::Spec.new do |s|
   s.name             = 'DynamicBottomSheet'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of DynamicBottomSheet.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.summary          = 'Customizable Dynamic Bottom Sheet Library for iOS'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+
+Fully Customizable Dynamic Bottom Sheet Library for iOS.
+This library doesn't support storyboards.
+However, you can easily override variables in DynamicBottomSheetViewController and make the bottom sheet programmatically.
+
                        DESC
 
-  s.homepage         = 'https://github.com/aaronLab/DynamicBottomSheet'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/Witi-Official/DynamicBottomSheet'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'aaronLab' => 'aaronlab.net@gmail.com' }
-  s.source           = { :git => 'https://github.com/aaronLab/DynamicBottomSheet.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { 'Aaron Lee' => 'aaronlab.net@gmail.com' }
+  s.source           = { :git => 'https://github.com/Witi-Official/DynamicBottomSheet.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
+  s.requires_arc = true
+
+  s.swift_version = "5.0"
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'DynamicBottomSheet/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'DynamicBottomSheet' => ['DynamicBottomSheet/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'RxSwift', '~> 6.0'
+  s.dependency 'RxCocoa', '~> 6.0'
+  s.dependency 'RxGesture', '~> 4.0'
+  s.dependency 'SnapKit', '~> 5.0'
+  s.dependency 'Then', '~> 2.0'
+  
 end
