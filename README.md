@@ -63,6 +63,8 @@ For more examples, clone the repo, and run `pod install` from the Example direct
 ```swift
 import UIKit
 import DynamicBottomSheet
+import SnapKit
+import Then
 
 class MyStackViewBottomSheetViewController: DynamicBottomSheetViewController {
 
