@@ -6,7 +6,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/DynamicBottomSheet.svg?style=flat)](https://cocoapods.org/pods/DynamicBottomSheet)
 
 Fully Customizable Dynamic Bottom Sheet Library for iOS.
+
 This library doesn't support storyboards.
+
 However, you can easily override variables in DynamicBottomSheetViewController and make the bottom sheet programmatically.
 
 ## Preview
