@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DynamicBottomSheet'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Customizable Dynamic Bottom Sheet Library for iOS'
 
   s.description      = <<-DESC
@@ -29,7 +29,7 @@ However, you can easily override variables in DynamicBottomSheetViewController a
   s.swift_version = "5.0"
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'DynamicBottomSheet/Classes/**/*'
+  s.source_files = 'DynamicBottomSheet/Classes/*.{swift}'
   
   s.dependency 'RxSwift', '~> 6.0'
   s.dependency 'RxCocoa', '~> 6.0'
