@@ -30,7 +30,7 @@ open class DynamicBottomSheetViewController: UIViewController {
     
     // MARK: - Public Properties
     
-    /// The background color of the view controller below the content view.
+    /// The background color of the UIPresentationController.
     ///
     /// - `UIColor.black.withAlphaComponent(0.6)` for others.
     open var backgroundColor: UIColor = {
@@ -112,10 +112,10 @@ open class DynamicBottomSheetViewController: UIViewController {
     ///
     /// Default values
     ///
-    /// - `modalPresentationStyle = .overFullScreen`
-    /// - `modalTransitionStyle = .crossDissolve`
-    public init(modalPresentationStyle: UIModalPresentationStyle = .overFullScreen,
-                modalTransitionStyle: UIModalTransitionStyle = .crossDissolve) {
+    /// - `modalPresentationStyle = .custom`
+    /// - `modalTransitionStyle = .coverVertical`
+    public init(modalPresentationStyle: UIModalPresentationStyle = .custom,
+                modalTransitionStyle: UIModalTransitionStyle = .coverVertical) {
         super.init(nibName: nil, bundle: nil)
         
         initPresentationStyle(modalPresentationStyle: modalPresentationStyle,
@@ -138,12 +138,13 @@ open class DynamicBottomSheetViewController: UIViewController {
     ///
     /// Default values
     ///
-    /// - `modalPresentationStyle = .overFullScreen`
-    /// - `modalTransitionStyle = .crossDissolve`
-    open func initPresentationStyle(modalPresentationStyle: UIModalPresentationStyle = .overFullScreen,
-                                    modalTransitionStyle: UIModalTransitionStyle = .crossDissolve) {
+    /// - `modalPresentationStyle = .custom`
+    /// - `modalTransitionStyle = .coverVertical`
+    open func initPresentationStyle(modalPresentationStyle: UIModalPresentationStyle = .custom,
+                                    modalTransitionStyle: UIModalTransitionStyle = .coverVertical) {
         self.modalPresentationStyle = modalPresentationStyle
         self.modalTransitionStyle = modalTransitionStyle
+        transitioningDelegate = self
     }
     
     // MARK: - Lifecycle
@@ -217,8 +218,6 @@ extension DynamicBottomSheetViewController {
     /// This method layouts the background view.
     @objc
     open func layoutBackgroundView() {
-        backgroundView.backgroundColor = backgroundColor
-        
         view.addSubview(backgroundView)
         backgroundView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -255,6 +254,7 @@ extension DynamicBottomSheetViewController {
     /// Bind Rx
     private func bindRx() {
         bindBackgroundViewTapGesture()
+        bindContentViewCentre()
         bindContentViewPanGesture()
     }
     
@@ -283,11 +283,39 @@ extension DynamicBottomSheetViewController {
         
         UIView.animate(withDuration: transitionDuration) {
             self.contentView.center.y += contentViewHeight
-            self.backgroundView.backgroundColor = .clear
         } completion: { _ in
             self.dismiss(animated: false)
         }
         
+    }
+    
+    /// Bind the centre of the content view
+    private func bindContentViewCentre() {
+        contentView
+            .rx
+            .observe(CGPoint.self, #keyPath(UIView.center))
+            .asDriver(onErrorJustReturn: .zero)
+            .drive(onNext: { [weak self] centre in
+                guard let self = self else { return }
+                
+                let ratio = (self.contentView.center.y - self.originCentreY) / self.originCentreY
+                let alpha = 1 - ratio
+                
+                self.dimBackgroundView(alpha)
+            })
+            .disposed(by: bag)
+    }
+    
+    /// This changes the alpha of the background of the UIPresentationController.
+    ///
+    ///
+    /// - Parameter proportion: The alpha value of the background view.
+    @objc
+    open func dimBackgroundView(_ proportion: CGFloat) {
+        guard let presentationController = presentationController as? DynamicBottomSheetPresentationController else { return }
+        UIView.animate(withDuration: transitionDuration) {
+            presentationController.backgroundView.alpha = proportion
+        }
     }
     
     /// Bind the pan gesture on the content view.
@@ -339,23 +367,6 @@ extension DynamicBottomSheetViewController {
         gesture.view!.center = CGPoint(x: gesture.view!.center.x, y: translatedY)
         
         gesture.setTranslation(.zero, in: view)
-        
-        let ratio = (view.center.y - originCentreY) / originCentreY
-        let alpha = 1 - ratio
-        dimBackgroundView(alpha)
-        
-    }
-    
-    
-    /// This changes the alpha of the background view.
-    ///
-    ///
-    /// - Parameter proportion: The alpha value of the background view.
-    @objc
-    open func dimBackgroundView(_ proportion: CGFloat) {
-        UIView.animate(withDuration: transitionDuration) {
-            self.backgroundView.alpha = proportion
-        }
     }
     
     /// This method is called when the pan gesture is ended.
@@ -375,6 +386,15 @@ extension DynamicBottomSheetViewController {
         }
     }
     
+    /// This method restores the first position of the content view.
+    @objc
+    open func shouldRestoreSheet() {
+        UIView.animate(withDuration: transitionDuration) {
+            self.contentView.center.y = self.originCentreY
+        }
+        
+    }
+    
     /// This method defines if the bottom sheet should be dismissed or not.
     @objc
     open func shouldDismiss(_ gesture: UIPanGestureRecognizer, in view: UIView, threshold: CGFloat) -> Bool {
@@ -392,14 +412,17 @@ extension DynamicBottomSheetViewController {
         return velocity.y
     }
     
-    /// This method restores the first position of the content view.
-    @objc
-    open func shouldRestoreSheet() {
-        UIView.animate(withDuration: transitionDuration) {
-            self.contentView.center.y = self.originCentreY
-            self.backgroundView.alpha = 1
-        }
+}
+
+// MARK: - UIViewControllerTransitioningDelegate
+
+extension DynamicBottomSheetViewController: UIViewControllerTransitioningDelegate {
+    
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        let presentationController = DynamicBottomSheetPresentationController(presentedViewController: presented, presenting: presenting)
+        presentationController.backgroundView.backgroundColor = backgroundColor
         
+        return presentationController
     }
     
 }
