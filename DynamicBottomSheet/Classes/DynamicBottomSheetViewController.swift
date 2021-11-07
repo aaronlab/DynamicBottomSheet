@@ -347,7 +347,7 @@ extension DynamicBottomSheetViewController {
     }
     
     
-    /// This will make change the alpha of the background view.
+    /// This changes the alpha of the background view.
     ///
     ///
     /// - Parameter proportion: The alpha value of the background view.
@@ -375,7 +375,7 @@ extension DynamicBottomSheetViewController {
         }
     }
     
-    /// This method will defines if the bottom sheet should be dismissed or not.
+    /// This method defines if the bottom sheet should be dismissed or not.
     @objc
     open func shouldDismiss(_ gesture: UIPanGestureRecognizer, in view: UIView, threshold: CGFloat) -> Bool {
         let verticalVelocity = verticalVelocity(gesture, in: view)
@@ -384,7 +384,7 @@ extension DynamicBottomSheetViewController {
         return verticalVelocity > dismissVelocityThreshold || movedDownHalf
     }
     
-    /// This method will returns the vertical velocity of the pan gesture in the content view.
+    /// This method returns the vertical velocity of the pan gesture in the content view.
     @objc
     open func verticalVelocity(_ gesture: UIPanGestureRecognizer, in view: UIView) -> CGFloat {
         let velocity = gesture.velocity(in: view)
@@ -392,7 +392,7 @@ extension DynamicBottomSheetViewController {
         return velocity.y
     }
     
-    /// This method will restore the first position of the content view.
+    /// This method restores the first position of the content view.
     @objc
     open func shouldRestoreSheet() {
         UIView.animate(withDuration: transitionDuration) {
