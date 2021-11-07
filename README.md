@@ -25,6 +25,16 @@ However, you can easily override variables in DynamicBottomSheetViewController a
 
 - iOS 10.0 +
 
+- RxSwift 6.0
+
+- RxCocoa 6.0
+
+- RxGesture 4.0
+
+- SnapKit 5.0
+
+- Then 2.0
+
 ## Installation
 
 ### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
