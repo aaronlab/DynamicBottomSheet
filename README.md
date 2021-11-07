@@ -1,9 +1,13 @@
 # DynamicBottomSheet
 
-[![CI Status](https://img.shields.io/travis/aaronLab/DynamicBottomSheet.svg?style=flat)](https://travis-ci.org/aaronLab/DynamicBottomSheet)
+> Powerd by [Witi Corp.](https://www.witi.co.kr/), Seoul, South Korea.
+
+[![Platform](https://img.shields.io/cocoapods/p/DynamicBottomSheet.svg?style=flat)](https://cocoapods.org/pods/DynamicBottomSheet)
+[![Language: Swift 5](https://img.shields.io/badge/language-Swift5-orange?style=flat&logo=swift)](https://developer.apple.com/swift)
+![SwiftPM compatible](https://img.shields.io/badge/SPM-compatible-brightgreen?style=flat&logo=swift)
+![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-brightgreen?style=flat&logo=cocoapods)
 [![Version](https://img.shields.io/cocoapods/v/DynamicBottomSheet.svg?style=flat)](https://cocoapods.org/pods/DynamicBottomSheet)
 [![License](https://img.shields.io/cocoapods/l/DynamicBottomSheet.svg?style=flat)](https://cocoapods.org/pods/DynamicBottomSheet)
-[![Platform](https://img.shields.io/cocoapods/p/DynamicBottomSheet.svg?style=flat)](https://cocoapods.org/pods/DynamicBottomSheet)
 
 Fully Customizable Dynamic Bottom Sheet Library for iOS.
 
@@ -12,6 +16,7 @@ This library doesn't support storyboards.
 However, you can easily override variables in DynamicBottomSheetViewController and make the bottom sheet programmatically.
 
 ## Preview
+
 [![Preview](./resources/preview.gif)](./resources/preview.gif)
 
 ## Requirements
@@ -22,12 +27,22 @@ However, you can easily override variables in DynamicBottomSheetViewController a
 
 ## Installation
 
+### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
+
 DynamicBottomSheet is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'DynamicBottomSheet'
 ```
+
+```commandline
+$ pod install
+```
+
+### [Swift Package Manager(SPM)](https://www.swift.org/package-manager/)
+
+In Xcode, add as Swift package with this URL: `https://github.com/Witi-Official/DynamicBottomSheet`
 
 ## Usage
 
@@ -39,7 +54,7 @@ pod 'DynamicBottomSheet'
 
 4. Make `constraints of the view you made` to the `contentView` above.
 
-4. `Present the bottom sheet view controller` you made before in another view controller.
+5. `Present the bottom sheet view controller` you made before in another view controller.
 
 ## Example
 
@@ -50,9 +65,9 @@ import UIKit
 import DynamicBottomSheet
 
 class MyStackViewBottomSheetViewController: DynamicBottomSheetViewController {
-    
+
     // MARK: - Private Properties
-    
+
     private let stackView = UIStackView()
         .then {
             $0.axis = .vertical
@@ -60,20 +75,20 @@ class MyStackViewBottomSheetViewController: DynamicBottomSheetViewController {
             $0.alignment = .fill
             $0.distribution = .fillEqually
         }
-    
+
 }
 
 // MARK: - Layout
 
 extension MyStackViewBottomSheetViewController {
-    
+
     override func configureView() {
         super.configureView()
         layoutStackView()
     }
-    
+
     private func layoutStackView() {
-        
+
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
@@ -81,17 +96,17 @@ extension MyStackViewBottomSheetViewController {
             $0.trailing.equalToSuperview().offset(-16)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
-        
+
         Array(1...5).forEach {
-            
+
             let label = UILabel()
             label.text = "\($0)"
             stackView.addArrangedSubview(label)
-            
+
         }
-        
+
     }
-    
+
 }
 ```
 
@@ -156,7 +171,7 @@ open var dismissVelocityThreshold: CGFloat
 
 ## Author
 
-Aaron Lee at [Witi](https://www.witi.co.kr/), aaronlab.net@gmail.com
+Aaron Lee at [Witi Corp.](https://www.witi.co.kr/), aaronlab.net@gmail.com
 
 ## License
 
