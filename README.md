@@ -1,7 +1,5 @@
 # DynamicBottomSheet
 
-> Powerd by [Witi Corp.](https://www.witi.co.kr/), Seoul, South Korea.
-
 [![Platform](https://img.shields.io/cocoapods/p/DynamicBottomSheet.svg?style=flat)](https://cocoapods.org/pods/DynamicBottomSheet)
 [![Language: Swift 5](https://img.shields.io/badge/language-Swift5-orange?style=flat&logo=swift)](https://developer.apple.com/swift)
 ![SwiftPM compatible](https://img.shields.io/badge/SPM-compatible-brightgreen?style=flat&logo=swift)
@@ -52,7 +50,7 @@ $ pod install
 
 ### [Swift Package Manager(SPM)](https://www.swift.org/package-manager/)
 
-In Xcode, add as Swift package with this URL: `https://github.com/Witi-Official/DynamicBottomSheet`
+In Xcode, add as Swift package with this URL: `https://github.com/aaronLab/DynamicBottomSheet`
 
 ## Usage
 
@@ -183,7 +181,7 @@ open var dismissVelocityThreshold: CGFloat
 
 ## Author
 
-Aaron Lee at [Witi Corp.](https://www.witi.co.kr/), aaronlab.net@gmail.com
+[Aaron Lee](https://github.com/aaronLab), aaronlab.net@gmail.com
 
 ## License
 
