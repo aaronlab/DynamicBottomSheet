@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DynamicBottomSheet'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'Customizable Dynamic Bottom Sheet Library for iOS'
 
   s.description      = <<-DESC
@@ -19,10 +19,10 @@ However, you can easily override variables in DynamicBottomSheetViewController a
 
                        DESC
 
-  s.homepage         = 'https://github.com/Witi-Official/DynamicBottomSheet'
+  s.homepage         = 'https://github.com/aaronLab/DynamicBottomSheet'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Aaron Lee' => 'aaronlab.net@gmail.com' }
-  s.source           = { :git => 'https://github.com/Witi-Official/DynamicBottomSheet.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/aaronLab/DynamicBottomSheet.git', :tag => s.version.to_s }
 
   s.requires_arc = true
 
